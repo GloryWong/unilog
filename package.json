@@ -5,7 +5,7 @@
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "exit 0",
     "dev": "npm run build-esm -- -w && npm run build-cjs -- -w",
     "build": "npm run build-esm && npm run build-cjs",
     "build-esm": "tsc",
@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "chalk": "^4.1.1",
-    "log-symbols": "^4.1.0",
-    "ora": "^5.4.1"
+    "log-symbols": "^4.1.0"
   }
 }
