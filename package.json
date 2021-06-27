@@ -1,15 +1,13 @@
 {
   "name": "@glorywong/unilog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "log of united format and prefix in given context",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "scripts": {
     "test": "exit 0",
-    "dev": "npm run build-esm -- -w && npm run build-cjs -- -w",
-    "build": "npm run build-esm && npm run build-cjs",
-    "build-esm": "tsc",
-    "build-cjs": "tsc -p tsconfig.cjs.json",
+    "dev": "npm run build -- -w",
+    "build": "tsc --build tsconfig.json tsconfig.cjs.json",
     "prepublishOnly": "npm run build"
   },
   "files": [
