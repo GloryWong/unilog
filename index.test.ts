@@ -1,7 +1,7 @@
 import unilog from './index';
 import { Unilog } from './index';
 
-describe.each([
+xdescribe.each([
   ['one param'],
   ['first param', 'second param'],
   ['string', 123, true, { a: 'object' }, ['array'], undefined, null, Symbol('symbol')]
@@ -53,17 +53,32 @@ describe.each([
 });
 
 describe('Standalone usage', () => {
-  test('Change title in midway', () => {
+  test('Basic usage', () => {
     expect(() => {
-      unilog('Init title');
+      unilog('Block');
       unilog.info('hello world', { a: 2 });
       unilog.succeed('really', 123);
       unilog.warn('forget love potion', 'forget me');
       unilog.fail('You suck', false, true, false, null, undefined);
-      unilog.debug('Catch and clear it', 'sure?', true, Symbol('bug'), function() { console.log('function print') });
+      unilog.debug('Catch and clear it', 'sure?', true, Symbol('bug'), function () { console.log('function print') });
+    }).not.toThrow();
+  });
 
-      unilog('Title changed in midway').info('<- New title', { a: 2}, false);
+  test('Change title in midway', () => {
+    expect(() => {
+      unilog('Init title');
+      unilog.mid('Title changed in midway').info('<- New title', { a: 2}, false);
       unilog.warn('<- Title recovered', 1, 2, 3, 4, true, { b: { c: { d: undefined } } });
+    }).not.toThrow();
+  });
+
+  test('Change title permernantly', () => {
+    expect(() => {
+      unilog('Init title');
+      unilog.succeed('<- Original title', true, 123);
+      unilog('New title');
+      unilog.succeed('<- new title setted', 'sure', [1,2,3]);
+      unilog.succeed('<- look at the new title');
     }).not.toThrow();
   });
 });

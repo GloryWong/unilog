@@ -23,8 +23,8 @@ class Unilog {
   #title = '';
   #midwayTitle = '';
 
-  constructor(title: string) {
-    this.#title = title;
+  constructor(title?: string) {
+    this.#title = title || '';
   }
 
   getTitle(): string {
@@ -61,8 +61,9 @@ class Unilog {
       return '%o';
     }).join(' - ');
 
+    const title = this.#midwayTitle || this.#title;
     // print log
-    console.log(`${symbol} ${typeDisplay}: %s, ${tmpl}`, this.#midwayTitle || this.#title, ...data);
+    console.log(`${symbol} ${typeDisplay}: ${title}${ title ? '. ' : ''}${tmpl}`, ...data);
     
     // reset midwayTitle
     this.#midwayTitle = '';
@@ -98,27 +99,60 @@ class Unilog {
 let standaloneInst: Unilog;
 
 interface Standalone {
-  (title: string): Unilog;
+  (title?: string): Unilog;
   info: (...data: any[]) => Unilog;
   succeed: (...data: any[]) => Unilog;
   warn: (...data: any[]) => Unilog;
   fail: (...data: any[]) => Unilog;
   debug: (...data: any[]) => Unilog;
-}
+  mid: (title: string) => Unilog;
+};
 
 const unilog: Standalone = function(title): Unilog {
   if (!standaloneInst) {
     standaloneInst = new Unilog(title);
   } else {
-    standaloneInst.setMidewayTitle(title);
+    standaloneInst.setTitle(title || '');
   }
   return standaloneInst;
 }
-unilog.info = (...data) => standaloneInst.info(...data);
-unilog.succeed = (...data) => standaloneInst.succeed(...data);
-unilog.warn = (...data) => standaloneInst.warn(...data);
-unilog.fail = (...data) => standaloneInst.fail(...data);
-unilog.debug = (...data) => standaloneInst.debug(...data);
+
+unilog.info = (...data) => {
+  if (!standaloneInst) {
+    unilog();
+  }
+  return standaloneInst.info(...data);
+};
+unilog.succeed = (...data) => {
+  if (!standaloneInst) {
+    unilog();
+  }
+  return standaloneInst.succeed(...data);
+};
+unilog.warn = (...data) => {
+  if (!standaloneInst) {
+    unilog();
+  }
+  return standaloneInst.warn(...data);
+};
+unilog.fail = (...data) => {
+  if (!standaloneInst) {
+    unilog();
+  }
+  return standaloneInst.fail(...data);
+};
+unilog.debug = (...data) => {
+  if (!standaloneInst) {
+    unilog();
+  }
+  return standaloneInst.debug(...data);
+};
+unilog.mid = (...data) => {
+  if (!standaloneInst) {
+    unilog();
+  }
+  return standaloneInst.setMidewayTitle(...data);
+};
 
 export {
   Unilog,
