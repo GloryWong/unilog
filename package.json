@@ -1,14 +1,14 @@
 {
   "name": "@glorywong/unilog",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "log of united format and prefix in given context",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "scripts": {
-    "test": "exit 0",
+    "test": "jest",
     "dev": "npm run build -- -w",
     "build": "tsc --build tsconfig.json tsconfig.cjs.json",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm test && npm run build"
   },
   "files": [
     "lib"
@@ -17,11 +17,17 @@
   "author": "glorywong1001@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.12.4",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.3.4"
   },
   "dependencies": {
     "chalk": "^4.1.1",
     "log-symbols": "^4.1.0"
+  },
+  "jest": {
+    "preset": "ts-jest"
   }
 }
