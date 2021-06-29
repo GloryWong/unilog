@@ -61,29 +61,29 @@ Create a unilog instance with or without `title`, which will be used as a unifie
 ### Log actions
 `.info(...data?)`, `.succeed(...data?)`, `.warn(...data?)`, `.fail(...data?)`, `.debug(...data?)`.
 
-`data`: multiple *printed data* passed to log actions.
+`data`: multiple *printed data* passed to log actions. Data Type: Any supported type.
 
 Logs with a unified title and [symbol](https://github.com/sindresorhus/log-symbols) will be printed in the console of Browser or Node. If wanna use different `title` temporarily for a log action, use method `.mid` to set a `midwayTitle` before the log action. The `midwayTitle` will be consumed only once, which means rest log actions will still use the initialized `title`.
 
 > `.debug` won't print log if `process.env.NODE_ENV === 'production'`.
 
-### getTitle
+### .getTitle
 
 Get the present unified title
 
-### setTitle
+### .setTitle
 
 Set the unified title
 
-### getMidwayTitle
+### .getMidwayTitle
 
 Get the midway title, which temporary for next log action.
 
-### setMidewayTitle
+### .setMidewayTitle
 
 Set the midway title, which temporary for next log action.
 
-### mid
+### .mid
 
-Shortcut to setMidewayTitle.
+Shortcut to `setMidewayTitle`.
 
