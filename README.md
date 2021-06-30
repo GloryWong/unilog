@@ -2,8 +2,6 @@
 
 Log everywhere with unified title and symbol.
 
-> Support *CommonJS* and *ESModule*.
-
 # Install
 
 ```sh
@@ -26,7 +24,7 @@ unilog.warn('Balls became worse', 3); // PRINT ⚠ Warn: Play balls. Balls becom
 unilog.fail('Something wrong', { a: 1 }); // PRINT ✖ Fail: Play balls. Something wrong - { a: 1 }
 ```
 
-## Standalone
+## Singleton
 
 ```javascript
 import unilog from '@glorywong/unilog';
@@ -53,7 +51,7 @@ unilog.info('All entertainments were closed'); // PRINT ℹ Info: Finished. All 
 
 # API
 
-## Constructor: new Unilog(title?) or Standalone: unilog(title?)
+## Constructor: new Unilog(title?) or Singleton: unilog(title?)
 Create a unilog instance with or without `title`, which will be used as a unified title for log actions
 
 ## Instance

@@ -95,10 +95,10 @@ class Unilog {
   }
 }
 
-// Standalone
-let standaloneInst: Unilog;
+// Singleton
+let singletonInst: Unilog;
 
-interface Standalone {
+interface Singleton {
   (title?: string): Unilog;
   info: (...data: any[]) => Unilog;
   succeed: (...data: any[]) => Unilog;
@@ -108,53 +108,53 @@ interface Standalone {
   mid: (title: string) => Unilog;
 };
 
-const unilog: Standalone = function(title): Unilog {
-  if (!standaloneInst) {
-    standaloneInst = new Unilog(title);
+const unilog: Singleton = function(title): Unilog {
+  if (!singletonInst) {
+    singletonInst = new Unilog(title);
   } else {
-    standaloneInst.setTitle(title || '');
+    singletonInst.setTitle(title || '');
   }
-  return standaloneInst;
+  return singletonInst;
 }
 
 unilog.info = (...data) => {
-  if (!standaloneInst) {
+  if (!singletonInst) {
     unilog();
   }
-  return standaloneInst.info(...data);
+  return singletonInst.info(...data);
 };
 unilog.succeed = (...data) => {
-  if (!standaloneInst) {
+  if (!singletonInst) {
     unilog();
   }
-  return standaloneInst.succeed(...data);
+  return singletonInst.succeed(...data);
 };
 unilog.warn = (...data) => {
-  if (!standaloneInst) {
+  if (!singletonInst) {
     unilog();
   }
-  return standaloneInst.warn(...data);
+  return singletonInst.warn(...data);
 };
 unilog.fail = (...data) => {
-  if (!standaloneInst) {
+  if (!singletonInst) {
     unilog();
   }
-  return standaloneInst.fail(...data);
+  return singletonInst.fail(...data);
 };
 unilog.debug = (...data) => {
-  if (!standaloneInst) {
+  if (!singletonInst) {
     unilog();
   }
-  return standaloneInst.debug(...data);
+  return singletonInst.debug(...data);
 };
 unilog.mid = (...data) => {
-  if (!standaloneInst) {
+  if (!singletonInst) {
     unilog();
   }
-  return standaloneInst.setMidewayTitle(...data);
+  return singletonInst.setMidewayTitle(...data);
 };
 
 export {
   Unilog,
-  unilog as default
+  unilog
 };

@@ -1,5 +1,4 @@
-import unilog from './index';
-import { Unilog } from './index';
+import { Unilog, unilog } from './index';
 
 xdescribe.each([
   ['one param'],
