@@ -5,11 +5,11 @@ Log everywhere with unified title and symbol.
 # Install
 
 ```sh
-npm install @glorywong/unilog
+npm install @gloxy/unilog
 ```
 or
 ```sh
-yarn add @glorywong/unilog
+yarn add @gloxy/unilog
 ```
 
 # Usage
@@ -17,7 +17,7 @@ yarn add @glorywong/unilog
 ## Constructor
 
 ```javascript
-import { Unilog } from '@glorywong/unilog';
+import { Unilog } from '@gloxy/unilog';
 
 const unilog = new Unilog('Play balls');
 unilog.warn('Balls became worse', 3); // PRINT ⚠ Warn: Play balls. Balls become worse - 3
@@ -27,7 +27,7 @@ unilog.fail('Something wrong', { a: 1 }); // PRINT ✖ Fail: Play balls. Somethi
 ## Singleton
 
 ```javascript
-import unilog from '@glorywong/unilog';
+import unilog from '@gloxy/unilog';
 
 function playBalls() {
   // Init log with a Title
