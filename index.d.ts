@@ -1,11 +1,13 @@
-declare type LogType = 'info' | 'succeed' | 'warn' | 'fail' | 'debug';
+declare type LogType = "info" | "succeed" | "warn" | "fail" | "debug";
+declare type MidwayTitle = string | undefined;
 declare class Unilog {
     #private;
     constructor(title?: string);
     getTitle(): string;
     setTitle(value: string): this;
-    getMidwayTitle(): string;
-    setMidewayTitle(value: string): this;
+    getMidwayTitle(): MidwayTitle;
+    setMidewayTitle(value?: MidwayTitle): this;
+    resetMidewayTitle(): this;
     print(type: LogType, data: any[]): this;
     info(...data: any[]): this;
     succeed(...data: any[]): this;
@@ -20,7 +22,7 @@ interface Singleton {
     warn: (...data: any[]) => Unilog;
     fail: (...data: any[]) => Unilog;
     debug: (...data: any[]) => Unilog;
-    mid: (title: string) => Unilog;
+    mid: (title?: string) => Unilog;
 }
 declare const unilog: Singleton;
 export { Unilog, unilog };

@@ -23,20 +23,20 @@ const chalkMap = {
     succeed: chalk_1.default.green,
     warn: chalk_1.default.yellow,
     fail: chalk_1.default.red,
-    debug: chalk_1.default.gray
+    debug: chalk_1.default.gray,
 };
 const symbolsMap = {
-    info: log_symbols_1.default['info'],
-    succeed: log_symbols_1.default['success'],
-    warn: log_symbols_1.default['warning'],
-    fail: log_symbols_1.default['error'],
-    debug: chalkMap.debug('*')
+    info: log_symbols_1.default["info"],
+    succeed: log_symbols_1.default["success"],
+    warn: log_symbols_1.default["warning"],
+    fail: log_symbols_1.default["error"],
+    debug: chalkMap.debug("*"),
 };
 class Unilog {
     constructor(title) {
-        _Unilog_title.set(this, '');
-        _Unilog_midwayTitle.set(this, '');
-        __classPrivateFieldSet(this, _Unilog_title, title || '', "f");
+        _Unilog_title.set(this, "");
+        _Unilog_midwayTitle.set(this, undefined);
+        __classPrivateFieldSet(this, _Unilog_title, title || "", "f");
     }
     getTitle() {
         return __classPrivateFieldGet(this, _Unilog_title, "f");
@@ -48,42 +48,48 @@ class Unilog {
     getMidwayTitle() {
         return __classPrivateFieldGet(this, _Unilog_midwayTitle, "f");
     }
-    setMidewayTitle(value) {
+    setMidewayTitle(value = "") {
         __classPrivateFieldSet(this, _Unilog_midwayTitle, value, "f");
+        return this;
+    }
+    resetMidewayTitle() {
+        __classPrivateFieldSet(this, _Unilog_midwayTitle, undefined, "f");
         return this;
     }
     print(type, data) {
         const symbol = symbolsMap[type];
         const typeDisplay = chalkMap[type](type.substr(0, 1).toUpperCase() + type.substr(1));
-        const tmpl = data.map(v => {
-            if (typeof v === 'string') {
-                return '%s';
+        const tmpl = data
+            .map((v) => {
+            if (typeof v === "string") {
+                return "%s";
             }
-            if (typeof v === 'number') {
-                return '%d';
+            if (typeof v === "number") {
+                return "%d";
             }
-            return '%o';
-        }).join(' - ');
-        const title = __classPrivateFieldGet(this, _Unilog_midwayTitle, "f") || __classPrivateFieldGet(this, _Unilog_title, "f");
-        console.log(`${symbol} ${typeDisplay}: ${title}${title ? '. ' : ''}${tmpl}`, ...data);
-        __classPrivateFieldSet(this, _Unilog_midwayTitle, '', "f");
+            return "%o";
+        })
+            .join(", ");
+        const title = __classPrivateFieldGet(this, _Unilog_midwayTitle, "f") !== undefined ? __classPrivateFieldGet(this, _Unilog_midwayTitle, "f") : __classPrivateFieldGet(this, _Unilog_title, "f");
+        console.log(`${symbol} ${typeDisplay}: ${title}${title ? ". " : ""}${tmpl}`, ...data);
+        this.resetMidewayTitle();
         return this;
     }
     info(...data) {
-        return this.print('info', data);
+        return this.print("info", data);
     }
     succeed(...data) {
-        return this.print('succeed', data);
+        return this.print("succeed", data);
     }
     warn(...data) {
-        return this.print('warn', data);
+        return this.print("warn", data);
     }
     fail(...data) {
-        return this.print('fail', data);
+        return this.print("fail", data);
     }
     debug(...data) {
-        if (process.env.NODE_ENV !== 'production') {
-            return this.print('debug', data);
+        if (process.env.NODE_ENV !== "production") {
+            return this.print("debug", data);
         }
         return this;
     }
@@ -91,13 +97,12 @@ class Unilog {
 exports.Unilog = Unilog;
 _Unilog_title = new WeakMap(), _Unilog_midwayTitle = new WeakMap();
 let singletonInst;
-;
 const unilog = function (title) {
     if (!singletonInst) {
         singletonInst = new Unilog(title);
     }
     else {
-        singletonInst.setTitle(title || '');
+        singletonInst.setTitle(title || "");
     }
     return singletonInst;
 };
@@ -132,9 +137,9 @@ unilog.debug = (...data) => {
     }
     return singletonInst.debug(...data);
 };
-unilog.mid = (...data) => {
+unilog.mid = (midwayTitle) => {
     if (!singletonInst) {
         unilog();
     }
-    return singletonInst.setMidewayTitle(...data);
+    return singletonInst.setMidewayTitle(midwayTitle);
 };
